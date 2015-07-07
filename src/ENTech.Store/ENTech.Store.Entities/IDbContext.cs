@@ -12,6 +12,7 @@ using ENTech.Store.Entities.PartnerModule;
 using ENTech.Store.Entities.CustomerModule;
 using ENTech.Store.Entities.StoreModule;
 using ENTech.Store.Infrastructure.Entities;
+using ENTech.Store.Entities.UploadModule;
 
 namespace ENTech.Store.Entities
 {
@@ -44,6 +45,8 @@ namespace ENTech.Store.Entities
 		IFilerableDbSet<Country> Countries { get; }
 		
 		IFilerableDbSet<State> States { get; }
+        
+        IFilerableDbSet<Upload> Uploads { get; }
 
 		IDbSet<T> GetDbSet<T>() where T : class, IEntity;
 
@@ -90,6 +93,7 @@ namespace ENTech.Store.Entities
 		public IFilerableDbSet<Address> Addresses { get; private set; }
 		public IFilerableDbSet<Country> Countries { get; private set; }
 		public IFilerableDbSet<State> States { get; private set; }
+        public IFilerableDbSet<Upload> Uploads { get; private set; }
 		public IDbSet<T> GetDbSet<T>() where T : class, IEntity
 		{
 			return new FakeDbSet<T>();

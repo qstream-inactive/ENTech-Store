@@ -75,6 +75,7 @@
     <Compile Include="Misc\CommandServiceBase.cs" />
     <Compile Include="Misc\SecureRequestBase.cs" />
     <Compile Include="Misc\SecurityInformation.cs" />
+    <Compile Include="ProductModule\Commands\ProductFinishUploadCommand.cs" />
     <Compile Include="ProductModule\Commands\ProductFindCommand.cs" />
     <Compile Include="ProductModule\Dtos\ProductFindCriteriaDto.cs" />
     <Compile Include="ProductModule\Queries\ProductFindQuery.cs" />
@@ -105,8 +106,10 @@
     <Compile Include="SharedModule\Dtos\SortFieldDto.cs" />
     <Compile Include="SharedModule\ModuleLogic\TokenData.cs" />
     <Compile Include="SharedModule\ModuleLogic\TokenUtilService.cs" />
+    <Compile Include="SharedModule\Requests\EntityFinishUploadRequest.cs" />
     <Compile Include="SharedModule\Requests\FindRequestBase.cs" />
     <Compile Include="SharedModule\Requests\GetByIdRequestBase.cs" />
+    <Compile Include="SharedModule\Responses\EnitutyFinishUploadResponse.cs" />
     <Compile Include="SharedModule\Responses\FindResponseBase.cs" />
     <Compile Include="StoreModule\Commands\StoreUpdateCommand.cs" />
     <Compile Include="StoreModule\Dtos\StoreUpdateDto.cs" />
@@ -128,6 +131,20 @@
     <Compile Include="StoreModule\Responses\StoreGetByIdResponse.cs" />
     <Compile Include="StoreModule\Requests\StoreCreateRequest.cs" />
     <Compile Include="StoreModule\Responses\StoreCreateResponse.cs" />
+    <Compile Include="UploadModule\Commands\UploadAttachCommand.cs" />
+    <Compile Include="UploadModule\Commands\UploadFinishCommand.cs" />
+    <Compile Include="UploadModule\Commands\UploadSaveCommand.cs" />
+    <Compile Include="UploadModule\Commands\UploadCreateCommand.cs" />
+    <Compile Include="UploadModule\Requests\UploadCreateRequest.cs" />
+    <Compile Include="UploadModule\Requests\UploadFinishRequest.cs" />
+    <Compile Include="UploadModule\Requests\UploadGetByIdRequest.cs" />
+    <Compile Include="UploadModule\Requests\UploadAttachRequest.cs" />
+    <Compile Include="UploadModule\Requests\UploadSaveRequest.cs" />
+    <Compile Include="UploadModule\Responses\UploadCreateResponse.cs" />
+    <Compile Include="UploadModule\Responses\UploadGetByIdResponse.cs" />
+    <Compile Include="UploadModule\Responses\UploadAttachResponse.cs" />
+    <Compile Include="UploadModule\Responses\UploadFinishResponse.cs" />
+    <Compile Include="UploadModule\Responses\UploadSaveResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ENTech.Store.Entities\ENTech.Store.Entities.csproj">
@@ -145,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AuthenticationModule\MapProfiles\" />
+    <Folder Include="UploadModule\Dtos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

@@ -10,6 +10,7 @@ using ENTech.Store.Entities.StoreModule;
 using ENTech.Store.Infrastructure.Cache;
 using ENTech.Store.Infrastructure.Entities;
 using ENTech.Store.Infrastructure.Utils;
+using ENTech.Store.Entities.UploadModule;
 
 namespace ENTech.Store.Entities
 {
@@ -26,6 +27,7 @@ namespace ENTech.Store.Entities
 		private DbContextTransaction _transaction;
 		private IFilerableDbSet<Partner> _partners;
 		private IFilerableDbSet<Product> _products;
+        private IFilerableDbSet<Upload> _uploads;
 
 		public DbContext() : base(EnvironmentUtils.GetConnectionStringName())
 		{
@@ -51,6 +53,8 @@ namespace ENTech.Store.Entities
 			_addresses = new Lazy<IFilerableDbSet<Address>>(() => new FilterableDbSet<Address>(this)).Value;
 
 			_products = new Lazy<IFilerableDbSet<Product>>(() => new FilterableDbSet<Product>(this)).Value;
+
+            _uploads = new Lazy<IFilerableDbSet<Upload>>(() => new FilterableDbSet<Upload>(this)).Value;
 
 		}
 
@@ -170,6 +174,12 @@ namespace ENTech.Store.Entities
 		{
 			get { return _states; }
 		}
+
+        public IFilerableDbSet<Upload> Uploads
+        {
+            get { return _uploads; }
+        }
+
 
 		
 
