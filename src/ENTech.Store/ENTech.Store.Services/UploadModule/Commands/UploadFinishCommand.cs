@@ -45,7 +45,7 @@ namespace ENTech.Store.Services.UploadModule.Commands
                 result.ArgumentErrors = cmdResult.ArgumentErrors;
             }
 
-            return result;x
+            return result;
         }
 
         private static DbContextCommandBase<EntityFinishUploadRequest, UploadFinishResponse> GetCommand(string entityTypeName)
