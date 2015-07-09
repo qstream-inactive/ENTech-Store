@@ -33,6 +33,8 @@ namespace ENTech.Store.Entities.StoreModule
 
 		public decimal TaxAmount { get; set; }
 
+
+        public int PhotoUploadId { get; set; }
 		public string Photo { get; set; }
 
 		public bool IsActive { get; set; }

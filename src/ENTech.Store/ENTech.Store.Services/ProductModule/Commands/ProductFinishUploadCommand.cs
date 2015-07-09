@@ -8,14 +8,14 @@ using ENTech.Store.Services.SharedModule.Responses;
 
 namespace ENTech.Store.Services.ProductModule.Commands
 {
-    public class ProductFinishUploadCommand : DbContextCommandBase<EntityFinishUploadRequest, EnitutyFinishUploadResponse>
+    public class ProductFinishUploadCommand : DbContextCommandBase<EntityFinishUploadRequest, EntityFinishUploadResponse>
 	{
         public ProductFinishUploadCommand(IUnitOfWork unitOfWork)
             : base(unitOfWork.DbContext, false)
 		{
 		}
 
-        public override EnitutyFinishUploadResponse Execute(EntityFinishUploadRequest request)
+        public override EntityFinishUploadResponse Execute(EntityFinishUploadRequest request)
 		{
             //todo: update product with repo
 
@@ -31,7 +31,7 @@ namespace ENTech.Store.Services.ProductModule.Commands
                 }//else - the upload is not actual (was canceled before)
             }
 
-            return new EnitutyFinishUploadResponse
+            return new EntityFinishUploadResponse
 			{
 				IsSuccess = true
 			};

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ENTech.Store.Services.UploadModule.Requests
 {
-    public class UploadSaveRequest : SecureRequestBase<BusinessAdminSecurityInformation>
+    public class UploadUpdateRequest : SecureRequestBase<BusinessAdminSecurityInformation>
     {
         public int Id { get; set; }
         public Stream Stream { get; set; }

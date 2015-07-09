@@ -2,5 +2,6 @@
 {
 	public class ProductUpdateDto
 	{
+        public int PhotoUploadId { get; set; }
 	}
 }

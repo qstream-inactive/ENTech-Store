@@ -10,6 +10,8 @@ namespace ENTech.Store.Entities.UploadModule
     {
         public int Id { get; set; }
         public int OwnerId { get; set; }
+        
+        public string Role { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }

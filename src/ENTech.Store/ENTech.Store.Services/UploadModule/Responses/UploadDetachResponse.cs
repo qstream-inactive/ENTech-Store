@@ -2,7 +2,7 @@
 
 namespace ENTech.Store.Services.UploadModule.Responses
 {
-    public class UploadSaveResponse: InternalResponse
+    public class UploadDetachResponse : InternalResponse
     {
     }
 }

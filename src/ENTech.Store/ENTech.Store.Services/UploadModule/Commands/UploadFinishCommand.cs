@@ -52,6 +52,7 @@ namespace ENTech.Store.Services.UploadModule.Commands
         {
             if (entityTypeName == "Product")
             {
+                //todo: use command service
                 return new ProductModule.Commands.ProductFinishUploadCommand();
             }
 

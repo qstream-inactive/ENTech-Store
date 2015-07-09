@@ -18,9 +18,10 @@ namespace ENTech.Store.Services.UploadModule.Commands
             var upload = this.DbContext.Uploads.Create();
             upload.CreatedAt = DateTime.UtcNow;
             upload.LastUpdatedAt = upload.CreatedAt;
+            upload.Role = request.Role;
             upload.OwnerId = userId;
             
-            //todo: UploadSaveRequest upload
+            //todo: UploadUpdateRequest upload
 
             return new UploadCreateResponse
 			{

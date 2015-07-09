@@ -3,7 +3,7 @@ using ENTech.Store.Services.SharedModule.Requests;
 
 namespace ENTech.Store.Services.SharedModule.Responses
 {
-    public class EnitutyFinishUploadResponse : InternalResponse
+    public class EntityFinishUploadResponse : InternalResponse
     {
     }
 }
