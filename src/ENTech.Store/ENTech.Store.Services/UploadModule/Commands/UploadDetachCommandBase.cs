@@ -5,13 +5,14 @@ using ENTech.Store.Services.SharedModule.Commands;
 using ENTech.Store.Services.UploadModule.Requests;
 using ENTech.Store.Services.UploadModule.Responses;
 using System;
+using ENTech.Store.Infrastructure.Repositories;
 
 namespace ENTech.Store.Services.UploadModule.Commands
 {
-    public class UploadDetachCommand : DbContextCommandBase<UploadDetachRequest, UploadDetachResponse>
+    public class UploadDetachCommandBase : RepositoryBasedCommandBase<UploadDetachRequest, UploadDetachResponse>
     {
-        public UploadDetachCommand(IUnitOfWork unitOfWork)
-            : base(unitOfWork.DbContext, false)
+        public UploadDetachCommandBase(IRepository repository)
+            : base(repository)
 		{
 		}
 
@@ -20,15 +21,17 @@ namespace ENTech.Store.Services.UploadModule.Commands
             if (request.UploadId > 0)
                 throw new ArgumentNullException("uploadId");
 
-            var u = (Upload)_repository.GetById(request.UploadId);
-            if (u.OwnerId != this.UserId)
-                throw new Exception("Access denied");
+            var u = Repository.GetById<Upload>(request.UploadId);
+            
+            //todo: update when userId is available
+            //if (u.OwnerId != this.UserId)
+            //    throw new Exception("Access denied");
 
             u.AttachedEntityType = null;
             u.AttachedEntityFieldName = null;
             u.AttachedEntityId = 0;
             u.IsAttached = false;
-            _repository.Update(u.Id, u);
+            Repository.Update(u.Id, u);
 
             return new UploadDetachResponse
 			{

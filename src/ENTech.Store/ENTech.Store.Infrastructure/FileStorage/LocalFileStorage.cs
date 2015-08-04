@@ -9,9 +9,9 @@ namespace ENTech.Store.Infrastructure.FileStorage
 {
     public class LocalFileStorage : FileStorageBase
     {
-        public override async Task<string> Save(string fileName, Stream s, Action<int> updateStatus)
+        public override string Save(string fileName, Stream s, Action<int> updateStatus)
         {
-            var path = @"M:\_tempo\Files\" + fileName;
+            var path = @"M:\_tempo\Files\" + fileName+DateTime.Now.Ticks;
             var b = new byte[1024 * 256];//256kb
 
             using (var fs = new FileStream(path, FileMode.CreateNew))
@@ -19,14 +19,14 @@ namespace ENTech.Store.Infrastructure.FileStorage
                 while (s.Position < s.Length)
                 {
                     //write to file / IFileWriter
-                    var actualLen = await s.ReadAsync(b, 0, b.Length);
-                    await fs.WriteAsync(b, 0, actualLen);
+                    var actualLen = s.Read(b, 0, b.Length);
+                    fs.Write(b, 0, actualLen);
 
                     updateStatus((int)s.Position);
-                    await Task.Delay(1000);
+                    //await Task.Delay(1000);
                 }
 
-                await fs.FlushAsync();
+                fs.Flush();
             }
 
             //save to cdn

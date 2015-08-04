@@ -4,5 +4,6 @@ namespace ENTech.Store.Services.ProductModule.Responses
 {
 	public class ProductCreateResponse : InternalResponse
 	{
+	    public int ProductId { get; set; }
 	}
 }

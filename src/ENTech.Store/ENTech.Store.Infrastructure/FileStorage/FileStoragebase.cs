@@ -9,6 +9,7 @@ namespace ENTech.Store.Infrastructure.FileStorage
 {
     public abstract class FileStorageBase
     {
-        public abstract Task<string> Save(string fileName, Stream s, Action<int> updateStatus);
+        //public abstract Task<string> Save(string fileName, Stream s, Action<int> updateStatus);
+        public abstract string Save(string fileName, Stream s, Action<int> updateStatus);
     }
 }

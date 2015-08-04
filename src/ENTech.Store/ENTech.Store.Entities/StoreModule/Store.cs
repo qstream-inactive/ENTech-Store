@@ -40,5 +40,7 @@ namespace ENTech.Store.Entities.StoreModule
 		[Required]
 		public string TimezoneId { get; set; }
 
+        [Required]
+        public string CurrencyCode{ get; set; }
 	}
 }

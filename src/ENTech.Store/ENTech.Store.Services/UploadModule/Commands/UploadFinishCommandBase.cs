@@ -5,29 +5,28 @@ using ENTech.Store.Services.SharedModule.Requests;
 using ENTech.Store.Services.UploadModule.Requests;
 using ENTech.Store.Services.UploadModule.Responses;
 using System;
+using ENTech.Store.Infrastructure.Repositories;
+using ENTech.Store.Services.SharedModule.Responses;
+using ENTech.Store.Entities.UploadModule;
 
 namespace ENTech.Store.Services.UploadModule.Commands
 {
-    public class UploadFinishCommand : DbContextCommandBase<UploadFinishRequest, UploadFinishResponse>
+    public class UploadFinishCommandBase : RepositoryBasedCommandBase<UploadFinishRequest, UploadFinishResponse>
     {
-        public UploadFinishCommand(IUnitOfWork unitOfWork)
-            : base(unitOfWork.DbContext, false)
-        {
-        }
+        public UploadFinishCommandBase(IRepository repository)
+            : base(repository)
+		{
+		}
 
         public override UploadFinishResponse Execute(UploadFinishRequest request)
         {
-            //this.DbContext.Uploads.
-            _repository.Delete(request.UploadId);
-            //move to cdn here.
+            Repository.Delete<Upload>(request.UploadId);
 
-            var cdnUrl = "";
-
-            EntityFinishUploadRequest r = new EntityFinishUploadRequest
+            var r = new EntityFinishUploadRequest
             {
                 EntityId = request.AttachedEntityId,
                 EntityFieldName = request.AttachedEntityFieldName,
-                CdnUrl = cdnUrl
+                CdnUrl = request.CdnUrl
             }; 
             
             var cmd = GetCommand(request.AttachedEntityType);
@@ -48,12 +47,13 @@ namespace ENTech.Store.Services.UploadModule.Commands
             return result;
         }
 
-        private static DbContextCommandBase<EntityFinishUploadRequest, UploadFinishResponse> GetCommand(string entityTypeName)
+        private RepositoryBasedCommandBase<EntityFinishUploadRequest, EntityFinishUploadResponse> GetCommand(string entityTypeName)
         {
+            
             if (entityTypeName == "Product")
             {
                 //todo: use command service
-                return new ProductModule.Commands.ProductFinishUploadCommand();
+                return new ProductModule.Commands.ProductFinishUploadCommandBase(this.Repository);
             }
 
             return null;

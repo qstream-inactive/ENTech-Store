@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ENTech.Store.Services.CommandService.Definition;
@@ -19,12 +20,40 @@ namespace ENTech.Store.Api.ForStoreAdmin.Controllers
 			_businessAdminExternalCommandService = businessAdminExternalCommandService;
 		}
 
+        [HttpPost]
+        [Route("TestOffSet")]
+        public DateTimeOffset TestOffSet([FromBody]DateTimeOffset? d)
+        {
+            if(d.HasValue) 
+                return d.Value.AddDays(1);
+            return DateTimeOffset.UtcNow;
+        }
+
+        [HttpPost]
+        [Route("TestDate")]
+        public DateTime TestDate([FromBody]DateTime? d)
+        {
+            if (d.HasValue)
+                return d.Value.AddDays(1);
+            //d.Value.ToUniversalTime
+            return DateTime.UtcNow;
+        }
+
+        [HttpPost]
+        [Route("Now")]
+        public DateTime Testnow([FromBody]DateTime? d)
+        {
+            return DateTime.Now;
+        }
+
+
+
 		[HttpPost]
 		[ResponseType(typeof(ProductCreateResponse))]
 		[Route("create")]
 		public HttpResponseMessage Create([FromBody]ProductCreateRequest request)
 		{
-			var response = _businessAdminExternalCommandService.Execute<ProductCreateRequest, ProductCreateResponse, ProductCreateCommand>(request);
+			var response = _businessAdminExternalCommandService.Execute<ProductCreateRequest, ProductCreateResponse, ProductCreateCommandBase>(request);
 			return Request.CreateResponse(response);
 		}
 
@@ -51,7 +80,7 @@ namespace ENTech.Store.Api.ForStoreAdmin.Controllers
 		[Route("{Id:int}")]
 		public HttpResponseMessage GetById([FromUri]ProductGetByIdRequest request)
 		{
-			var response = _businessAdminExternalCommandService.Execute<ProductGetByIdRequest, ProductGetByIdResponse, ProductGetByIdCommand>(request);
+			var response = _businessAdminExternalCommandService.Execute<ProductGetByIdRequest, ProductGetByIdResponse, ProductGetByIdCommandBase>(request);
 			return Request.CreateResponse(response);
 		}
 

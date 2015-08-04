@@ -9,5 +9,6 @@ namespace ENTech.Store.Services.UploadModule.Requests
         public string AttachedEntityType { get; set; }
         public int AttachedEntityId { get; set; }
         public string AttachedEntityFieldName { get; set; }
+        public string CdnUrl { get; set; }
     }
 }

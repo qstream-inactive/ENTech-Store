@@ -8,7 +8,7 @@ namespace ENTech.Store.Infrastructure.FileStorage
 {
     public class AzureFileStorage : FileStorageBase
     {
-        public override Task<string> Save(string fileName, System.IO.Stream s, Action<int> updateStatus)
+        public override string Save(string fileName, System.IO.Stream s, Action<int> updateStatus)
         {
             throw new NotImplementedException();
         }

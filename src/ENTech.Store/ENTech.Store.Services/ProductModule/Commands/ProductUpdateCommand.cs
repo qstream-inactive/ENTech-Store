@@ -49,7 +49,7 @@ namespace ENTech.Store.Services.ProductModule.Commands
 	                    UploadId = request.Product.PhotoUploadId,
 	                    AttachingEntityType = "Product",
 	                    AttachingEntityId = request.Id,
-	                    AttachingEntityFieldName = "Photo"
+	                    AttachingEntityFieldName = "PhotoUrl"
 	                };
 
 	                //todo: execute request

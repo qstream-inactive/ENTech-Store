@@ -11,6 +11,7 @@ using ENTech.Store.Services.Misc;
 using ENTech.Store.Services.UploadModule.Requests;
 using ENTech.Store.Services.UploadModule.Responses;
 using ENTech.Store.Services.UploadModule.Commands;
+using System.IO;
 
 
 
@@ -28,10 +29,9 @@ namespace ENTech.Store.Api.ForStoreAdmin.Controllers
         [HttpPost]
         [Route("1.0/uploads")]
         [ResponseType(typeof(UploadCreateResponse))]
-        public async Task<UploadCreateResponse> Create(string role)
+        public async Task<UploadCreateResponse> Create(UploadCreateRequest createUploadRequest)
         {
-            var createUploadRequest = new UploadCreateRequest(role);
-            var result = _businessAdminExternalCommandService.Execute<UploadCreateRequest, UploadCreateResponse, UploadCreateCommand>(createUploadRequest);
+            var result = _businessAdminExternalCommandService.Execute<UploadCreateRequest, UploadCreateResponse, UploadCreateCommandBase>(createUploadRequest);
             return result;
         }
 
@@ -40,21 +40,30 @@ namespace ENTech.Store.Api.ForStoreAdmin.Controllers
         [ResponseType(typeof(UploadUpdateResponse))]
         public async Task PutFile(int id)
         {
+            var files = System.Web.HttpContext.Current.Request.Files;
+
+            if (files.Count == 0)
+                throw new Exception("No file in http request");
+
+            if (files.Count > 1)
+                throw new Exception("Uploading more than 2 files in one http request - forbidden");
+
             using (var s = await this.Request.Content.ReadAsStreamAsync())
             {
+                var ext = Path.GetExtension(files[0].FileName);
                 var saveUploadResponse = new UploadUpdateRequest
                 {
                     Id = id,
-                    Stream = s,
-                    Extension = ".txt"
+                    Extension = ext,
+                    Stream = s
                 };
 
-                _businessAdminExternalCommandService.Execute<UploadUpdateRequest, UploadUpdateResponse, UploadUpdateCommand>(saveUploadResponse);
+                _businessAdminExternalCommandService.Execute<UploadUpdateRequest, UploadUpdateResponse, UploadUpdateCommandBase>(saveUploadResponse);
             }
         }
 
         [HttpGet]
-        [Route("1.0//uploads/{id}")]
+        [Route("1.0/uploads/{id}")]
         [ResponseType(typeof(UploadGetByIdResponse))]
         public async Task<object> GetById(int id)
         {
@@ -63,7 +72,7 @@ namespace ENTech.Store.Api.ForStoreAdmin.Controllers
                 Id = id
             };
 
-            var upload = _businessAdminExternalCommandService.Execute<UploadGetByIdRequest, UploadGetByIdResponse, UploadGetByIdCommand>(getUploadbyIdRequest);
+            var upload = _businessAdminExternalCommandService.Execute<UploadGetByIdRequest, UploadGetByIdResponse, UploadGetByIdCommandBase>(getUploadbyIdRequest);
             return upload;
         }
     }
